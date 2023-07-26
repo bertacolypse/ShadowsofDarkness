@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Comic Book Viewer</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #1b1b1b; /* Dark background color */
+      color: #fff; /* Text color */
+      font-family: Arial, sans-serif;
+      background-image: 
+        url("gallery/candle.png"), /* Replace "path/to/candle.png" with the correct image path */
+        url("gallery/candle.png");
+      background-repeat: no-repeat;
+      background-position: left center, right center;
+      background-size: auto 100vh; /* Adjust background size as needed */
+    }
+    .comic-navigation button {
+      color: #fff;
+      background-color: #333; /* Dark button color */
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .comic-navigation button:hover {
+      background-color: #555; /* Darker shade on hover */
+    }
+    .comic-page {
+      object-fit: contain;
+    }
+    .comic-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .comic-page {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .comic-navigation {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      width: 100%;
+      justify-content: space-between;
+      padding: 10px;
+    }
+    .comic-navigation button {
+      color: #fff;
+      background-color: #333;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .back-button {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .back-button button {
+      color: #fff;
+      background-color: #333;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="comic-container">
+    <div class="comic-navigation">
+      <button id="prev-btn">Previous</button>
+      <button id="next-btn">Next</button>
+    </div>
+    <img src="gallery/cover.png" alt="Page 1" class="comic-page" id="current-page">
+  </div>
+
+  <div class="back-button">
+    <button onclick="goBack()">Back to Index</button>
+  </div>
+
+  <script>
+    const pages = [
+      "gallery/cover.png",
+      "gallery/insidecover.jpg",
+      "gallery/page1.jpg",
+      "gallery/page2.jpg",
+      "gallery/page3.jpg",
+      "gallery/page4.jpg",
+      "gallery/page5.jpg",
+      "gallery/page6.jpg",
+      "gallery/page7.jpg",
+      "gallery/page8.jpg",
+      "gallery/page9.jpg",
+      "gallery/page010.jpg",
+      "gallery/page011.jpg",
+      "gallery/page012.jpg",
+      // ...
+    ];
+
+    let currentPage = 0;
+    const comicPage = document.getElementById("current-page");
+    const prevButton = document.getElementById("prev-btn");
+    const nextButton = document.getElementById("next-btn");
+
+    function updatePage() {
+      comicPage.src = pages[currentPage];
+      // Remove the next line as it causes an error
+      // pageNumber.textContent = `Page ${currentPage + 1}`;
+    }
+
+    function goToNextPage() {
+      if (currentPage < pages.length - 1) {
+        currentPage++;
+        updatePage();
+      }
+    }
+
+    function goToPreviousPage() {
+      if (currentPage > 0) {
+        currentPage--;
+        updatePage();
+      }
+    }
+
+    function goBack() {
+      window.location.href = "file:///C:/Users/bkinsey/Desktop/Webpages/Shadows%20of%20malevolence/index.html"; // Replace "index.html" with the correct path to your main page
+    }
+
+    nextButton.addEventListener("click", goToNextPage);
+    prevButton.addEventListener("click", goToPreviousPage);
+
+    // Load the first page when the page loads
+    updatePage();
+  </script>
+</body>
+</html>
