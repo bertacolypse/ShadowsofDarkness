@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to the Lands of Thordasha</title>
+    
+</head>
+<body>
+    <img src="images/banner.png" alt="Introduction Image">
+    <h1>Welcome to the Land of Thordasha</h1>
+    <p>Choose an action:</p>
+    <ul>
+        <li><button onclick="startGame()">Start Game</button></li>
+        <li><button onclick="exitGame()">Exit</button></li>
+    </ul>
+    <script>
+        let player;
+
+        function Character(name, playerClass, health, attackPower) {
+            this.name = name;
+            this.playerClass = playerClass;
+            this.health = health;
+            this.attackPower = attackPower;
+            this.inventory = [];
+        }
+
+        function Item(name, description) {
+            this.name = name;
+            this.description = description;
+        }
+
+        function startGame() {
+            let playerName = prompt("Enter your name: ");
+            let playerClass = prompt("Choose your class (Warrior, Mage, Rogue): ");
+
+            player = new Character(playerName, playerClass, 100, 10);
+
+            alert(`Welcome, ${player.name}, the ${player.playerClass}! Your adventure begins now.`);
+            explore();
+        }
+
+        function explore() {
+            let choice = prompt(`You are standing in the dark cave.\n\n1. Explore further\n2. Rest and heal\n3. Exit the cave`);
+
+            switch (choice) {
+                case "1":
+                    // Implement dungeon exploration and battle logic
+                    let enemyHealth = 50;
+                    alert("You venture deeper into the dark cave. Watch out for monsters!");
+
+                    // Battle loop
+                    while (player.health > 0 && enemyHealth > 0) {
+                        // Player attacks the enemy
+                        enemyHealth -= player.attackPower;
+                        alert(`You attack the enemy. Enemy health: ${enemyHealth}`);
+
+                        // Check if enemy defeated
+                        if (enemyHealth <= 0) {
+                            alert("You have defeated the enemy! You gain 20 gold and a health potion.");
+                            player.inventory.push(new Item("Health Potion", "Restores 20 health."));
+                            break;
+                        }
+
+                        // Enemy attacks the player
+                        player.health -= 10;
+                        alert(`The enemy attacks you. Your health: ${player.health}`);
+
+                        // Check if player defeated
+                        if (player.health <= 0) {
+                            alert("You have been defeated! Game Over.");
+                            exitGame();
+                            return;
+                        }
+                    }
+                    explore();
+                    break;
+                case "2":
+                    // Implement resting and healing logic
+                    player.health += 10;
+                    alert(`You find a safe spot and rest. Your health is now ${player.health}.`);
+                    explore();
+                    break;
+                case "3":
+                    // Exit the game
+                    exitGame();
+                    break;
+                default:
+                    alert("Invalid choice. Please choose again.");
+                    explore();
+                    break;
+            }
+        }
+
+        function showInventory() {
+            if (player.inventory.length === 0) {
+                alert("Your inventory is empty.");
+            } else {
+                let inventoryList = "Inventory:\n";
+                player.inventory.forEach(item => {
+                    inventoryList += `${item.name} - ${item.description}\n`;
+                });
+                alert(inventoryList);
+            }
+        }
+
+        function exitGame() {
+            showInventory();
+            alert("Thank you for playing! See you again!");
+        }
+    </script>
+   </body>
+</html>
