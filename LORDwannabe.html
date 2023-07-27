@@ -1,113 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to the Lands of Thordasha</title>
-    
+    <title>Pong Game</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #222;
+            color: #fff;
+        }
+
+        canvas {
+            border: 2px solid #fff;
+        }
+    </style>
 </head>
+
 <body>
-    <img src="images/banner.png" alt="Introduction Image">
-    <h1>Welcome to the Land of Thordasha</h1>
-    <p>Choose an action:</p>
-    <ul>
-        <li><button onclick="startGame()">Start Game</button></li>
-        <li><button onclick="exitGame()">Exit</button></li>
-    </ul>
+    <canvas id="gameCanvas" width="800" height="400"></canvas>
+
     <script>
-        let player;
+        // Set up the canvas and context
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
 
-        function Character(name, playerClass, health, attackPower) {
-            this.name = name;
-            this.playerClass = playerClass;
-            this.health = health;
-            this.attackPower = attackPower;
-            this.inventory = [];
+        // Game variables
+        const paddleWidth = 10;
+        const paddleHeight = 80;
+        const ballSize = 10;
+        let paddle1Y = canvas.height / 2 - paddleHeight / 2;
+        let ballX = canvas.width / 2;
+        let ballY = canvas.height / 2;
+        let ballSpeedX = 5;
+        let ballSpeedY = 5;
+        let scorePlayer = 0;
+        let scoreComputer = 0;
+        let computerPaddleY = canvas.height / 2 - paddleHeight / 2;
+
+        // Function to draw a rectangle on the canvas
+        function drawRect(x, y, width, height, color) {
+            ctx.fillStyle = color;
+            ctx.fillRect(x, y, width, height);
         }
 
-        function Item(name, description) {
-            this.name = name;
-            this.description = description;
+        // Function to draw the ball
+        function drawBall(x, y, size, color) {
+            ctx.fillStyle = color;
+            ctx.beginPath();
+            ctx.arc(x, y, size, 0, Math.PI * 2);
+            ctx.fill();
         }
 
-        function startGame() {
-            let playerName = prompt("Enter your name: ");
-            let playerClass = prompt("Choose your class (Warrior, Mage, Rogue): ");
-
-            player = new Character(playerName, playerClass, 100, 10);
-
-            alert(`Welcome, ${player.name}, the ${player.playerClass}! Your adventure begins now.`);
-            explore();
+        // Function to draw the net
+        function drawNet() {
+            ctx.strokeStyle = "#fff";
+            ctx.beginPath();
+            ctx.setLineDash([5, 15]);
+            ctx.moveTo(canvas.width / 2, 0);
+            ctx.lineTo(canvas.width / 2, canvas.height);
+            ctx.stroke();
         }
 
-        function explore() {
-            let choice = prompt(`You are standing in the dark cave.\n\n1. Explore further\n2. Rest and heal\n3. Exit the cave`);
+        // Function to draw the scores
+        function drawScores() {
+            ctx.fillStyle = "#fff";
+            ctx.font = "40px Arial";
+            ctx.fillText(`Player: ${scorePlayer}`, canvas.width / 4, 50);
+            ctx.fillText(`Computer: ${scoreComputer}`, (3 * canvas.width) / 4, 50);
+        }
 
-            switch (choice) {
-                case "1":
-                    // Implement dungeon exploration and battle logic
-                    let enemyHealth = 50;
-                    alert("You venture deeper into the dark cave. Watch out for monsters!");
+        // Function to update the computer's paddle position
+        function updateComputerPaddle() {
+            // Simple AI: The computer paddle follows the ball's Y position
+            computerPaddleY = ballY - paddleHeight / 2;
 
-                    // Battle loop
-                    while (player.health > 0 && enemyHealth > 0) {
-                        // Player attacks the enemy
-                        enemyHealth -= player.attackPower;
-                        alert(`You attack the enemy. Enemy health: ${enemyHealth}`);
-
-                        // Check if enemy defeated
-                        if (enemyHealth <= 0) {
-                            alert("You have defeated the enemy! You gain 20 gold and a health potion.");
-                            player.inventory.push(new Item("Health Potion", "Restores 20 health."));
-                            break;
-                        }
-
-                        // Enemy attacks the player
-                        player.health -= 10;
-                        alert(`The enemy attacks you. Your health: ${player.health}`);
-
-                        // Check if player defeated
-                        if (player.health <= 0) {
-                            alert("You have been defeated! Game Over.");
-                            exitGame();
-                            return;
-                        }
-                    }
-                    explore();
-                    break;
-                case "2":
-                    // Implement resting and healing logic
-                    player.health += 10;
-                    alert(`You find a safe spot and rest. Your health is now ${player.health}.`);
-                    explore();
-                    break;
-                case "3":
-                    // Exit the game
-                    exitGame();
-                    break;
-                default:
-                    alert("Invalid choice. Please choose again.");
-                    explore();
-                    break;
+            // Limit paddle position to stay within the canvas
+            if (computerPaddleY < 0) {
+                computerPaddleY = 0;
+            }
+            if (computerPaddleY > canvas.height - paddleHeight) {
+                computerPaddleY = canvas.height - paddleHeight;
             }
         }
 
-        function showInventory() {
-            if (player.inventory.length === 0) {
-                alert("Your inventory is empty.");
-            } else {
-                let inventoryList = "Inventory:\n";
-                player.inventory.forEach(item => {
-                    inventoryList += `${item.name} - ${item.description}\n`;
-                });
-                alert(inventoryList);
+        // Function to update the game state
+        function update() {
+            // Move the ball
+            ballX += ballSpeedX;
+            ballY += ballSpeedY;
+
+            // Bounce the ball off the top and bottom walls
+            if (ballY < 0 || ballY > canvas.height - ballSize) {
+                ballSpeedY = -ballSpeedY;
+            }
+
+            // Check for collisions with paddles
+            if (
+                (ballX < paddleWidth && ballY > paddle1Y && ballY < paddle1Y + paddleHeight) ||
+                (ballX > canvas.width - paddleWidth - ballSize &&
+                    ballY > computerPaddleY &&
+                    ballY < computerPaddleY + paddleHeight)
+            ) {
+                ballSpeedX = -ballSpeedX;
+            }
+
+            // Check for out-of-bounds (ball passes paddles)
+            if (ballX < 0) {
+                // Computer scores a point
+                scoreComputer++;
+                resetBall();
+            } else if (ballX > canvas.width) {
+                // Player scores a point
+                scorePlayer++;
+                resetBall();
+            }
+
+            // Update the computer's paddle position
+            updateComputerPaddle();
+        }
+
+        // Function to reset the ball to the center
+        function resetBall() {
+            ballX = canvas.width / 2;
+            ballY = canvas.height / 2;
+            ballSpeedX = -ballSpeedX;
+        }
+
+        // Function to draw everything on the canvas
+        function draw() {
+            // Clear the canvas
+            ctx.fillStyle = "#222";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Draw the paddles
+            drawRect(0, paddle1Y, paddleWidth, paddleHeight, "#fff");
+            drawRect(canvas.width - paddleWidth, computerPaddleY, paddleWidth, paddleHeight, "#fff");
+
+            // Draw the ball
+            drawBall(ballX, ballY, ballSize, "#fff");
+
+            // Draw the net
+            drawNet();
+
+            // Draw the scores
+            drawScores();
+        }
+
+        // Function to move the player's paddle
+        function movePaddle(evt) {
+            let mouseY = evt.clientY - canvas.offsetTop;
+            paddle1Y = mouseY - paddleHeight / 2;
+
+            // Limit paddle position to stay within the canvas
+            if (paddle1Y < 0) {
+                paddle1Y = 0;
+            }
+            if (paddle1Y > canvas.height - paddleHeight) {
+                paddle1Y = canvas.height - paddleHeight;
             }
         }
 
-        function exitGame() {
-            showInventory();
-            alert("Thank you for playing! See you again!");
+        // Start the game loop
+        function gameLoop() {
+            update();
+            draw();
+            requestAnimationFrame(gameLoop);
         }
+
+        // Event listener to move the player's paddle when the mouse moves
+        canvas.addEventListener("mousemove", movePaddle);
+
+        // Start the game loop
+        gameLoop();
     </script>
-   </body>
+</body>
+
 </html>
