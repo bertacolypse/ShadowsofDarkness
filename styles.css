@@ -33,8 +33,12 @@ nav a {
     /* ... existing styles ... */
     transition: background-color 0.2s ease, color 0.2s ease;
 }
-
-
+img[src="images/facebooklike.png"] {
+    max-width: 6px; /* Set the maximum width to limit the size */
+    max-height: 3px; /* Set the maximum height to limit the size */
+    border: none; /* Remove border if any */
+    cursor: pointer; /* Change cursor to a pointer on hover */
+  }
 
 
 main {
@@ -85,3 +89,19 @@ footer a:hover {
     background-color: #fff;
     color: #333;
 }
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #000000;
+    color: #ffffff;
+  }
+  
+  button {
+    display: block;
+    margin: 10px auto;
+  }
+  
