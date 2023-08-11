@@ -1,0 +1,63 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  display: flex;
+}
+
+.table-of-contents {
+  width: 20%;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+.book-content {
+  flex-grow: 1;
+  padding: 20px;
+}
+.page-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .page-navigation button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  .table-of-contents {
+    /* ...existing styles... */
+  }
+  
+  .table-of-contents ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+  }
+  
+  .table-of-contents li {
+    margin-bottom: 5px;
+  }
+  
+  .table-of-contents a {
+    text-decoration: none;
+    color: #333;
+    transition: color 0.3s;
+  }
+  
+  .table-of-contents a:hover {
+    color: #007bff;
+  }
+  .read-aloud-button {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+    

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Interactive Book Reader</title>
+</head>
+<body>
+  <div class="container">
+    <div class="table-of-contents">
+      <h2>Table of Contents</h2>
+      <ul id="tocList">
+        <li><a href="book-content.json">Prologue</a></li>
+        <li><a href="#page2">Chapter 1: Shadows of Ambition</a></li>
+        <!-- Add more table of contents items as needed -->
+      </ul>
+    </div>
+    <div class="book-content">
+      <!-- Book content goes here -->
+      
+      <!-- ...page divs... -->
+      
+      <div class="page-navigation">
+        <button id="prevButton">Previous Page</button>
+        <button id="nextButton">Next Page</button>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
