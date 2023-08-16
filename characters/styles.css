@@ -1,6 +1,19 @@
-img {
+/* Container for the character images */
+.character-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  padding: 20px;
+  list-style: none;
+  margin: 0;
+}
+
+/* Styling for each character image */
+.character-list img {
   display: block;
-  margin: 0 auto;
-  max-width: 200px;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
+  margin: 0 10px; /* Add some horizontal spacing between images */
 }

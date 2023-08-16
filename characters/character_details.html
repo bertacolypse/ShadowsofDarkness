@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Character Details</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <section id="character-details">
+        <div class="container">
+            <h2 id="character-name">Character Name</h2>
+            <p id="character-description">Character description goes here.</p>
+            <!-- Add more details as needed -->
+        </div>
+    </section>
+    <script>
+        window.onload = function() {
+            const characterNameParam = new URLSearchParams(window.location.search).get('character');
+            if (characterNameParam) {
+                const characterNameElement = document.getElementById('character-name');
+                const characterDescriptionElement = document.getElementById('character-description');
+                // Update the character details based on the characterNameParam
+                characterNameElement.textContent = characterNameParam;
+                characterDescriptionElement.textContent = getCharacterDescription(characterNameParam); // You can define this function to get character descriptions
+            }
+        }
+    
+        // Example function to get character descriptions
+        function getCharacterDescription(characterName) {
+            switch (characterName) {
+                case 'Daemon Devilwood':
+                    return 'Daemon is a mysterious figure with dark powers.';
+                case 'Rivek':
+                    return 'Rivek is a skilled warrior with a troubled past.';
+                // Add more cases as needed
+                default:
+                    return 'Character description not available.';
+            }
+        }
+    </script>
+    
+</body>
+</html>
