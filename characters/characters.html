@@ -58,46 +58,38 @@
     </section>
 
     <script>
-        // Reference to the opened popup window
-        let popupWindow;
-
         // Function to open a new window with character details
-        function openCharacterDetailsPopup(characterName) {
-            // Build the URL for the character details page
-            const characterDetailsURL = `character_details.html?character=${encodeURIComponent(characterName)}`;
-
+        function openCharacterDetails(characterName) {
+            const characterDetails = `
+                <!-- Add the character's details here -->
+                <!-- You can use the same structure as before with <h3>, <p>, etc. -->
+            `;
+    
             // Calculate the window position for centering
             const screenWidth = window.screen.availWidth;
             const screenHeight = window.screen.availHeight;
             const windowWidth = 600;
             const windowHeight = 400;
+    
+            // Calculate the left and top positions for centering the window
             const leftPosition = (screenWidth - windowWidth) / 2;
             const topPosition = (screenHeight - windowHeight) / 2;
-
+    
             // Open a new window with the character details
-            popupWindow = window.open(characterDetailsURL, '_blank', `width=${windowWidth},height=${windowHeight},left=${leftPosition},top=${topPosition}`);
-            popupWindow.focus();
-
-            // Add a click event listener to the main window to close the popup when clicked outside
-            window.addEventListener('click', closePopupOnClickOutside);
+            const newWindow = window.open('', '_blank', `width=${windowWidth},height=${windowHeight},left=${leftPosition},top=${topPosition}`);
+            newWindow.document.write(characterDetails);
+            newWindow.document.close();
         }
-
-        // Function to close the popup window when clicked outside
-        function closePopupOnClickOutside(event) {
-            if (popupWindow && event.target !== popupWindow && event.target !== popupWindow.document) {
-                popupWindow.close();
-                window.removeEventListener('click', closePopupOnClickOutside);
-            }
-        }
-
-        // Add click event listener to each image to open character details popup
+    
+        // Add click event listener to each image to open character details
         const images = document.querySelectorAll('img');
         images.forEach(function (image) {
             image.addEventListener('click', function () {
                 const characterName = this.getAttribute('title');
-                openCharacterDetailsPopup(characterName);
+                openCharacterDetails(characterName);
             });
         });
     </script>
+    
 </body>
 </html>
