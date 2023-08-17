@@ -1,19 +1,64 @@
-/* Container for the character images */
-.character-list {
+/* Reset default margin and padding for all elements */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Style for the body to set the background color */
+body {
+  background-color: black;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Style for the container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Style for character images */
+#character-list ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+}
+
+#character-list li {
+  flex: 1;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer; /* Add cursor style for interaction */
+}
+
+#character-list img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Style for character details pop-up window */
+/* You can customize this style as needed */
+.popup {
+  background-color: rgba(0, 0, 0, 0.8);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: black;
-  padding: 20px;
-  list-style: none;
-  margin: 0;
 }
 
-/* Styling for each character image */
-.character-list img {
-  display: block;
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  margin: 0 10px; /* Add some horizontal spacing between images */
+.popup-content {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
