@@ -108,3 +108,12 @@ footer {
     cursor: pointer;
     color: #ffffff;
 }
+.section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: center;
+}
+.video {
+    width: 100%;
+}
