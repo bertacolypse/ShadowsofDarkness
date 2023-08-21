@@ -1,0 +1,84 @@
+/* Reset some default styles */
+body, h1, h2, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+/* Apply styles to the header */
+header {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}
+
+/* Apply styles to the navigation */
+nav {
+    background-color: #444;
+    padding: 10px 0;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+nav li a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Apply styles to the section */
+section {
+    padding: 20px;
+}
+
+/* Apply styles to the footer */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}
+
+/* Style for character images */
+#character-list ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+}
+
+#character-list li {
+    flex: 1;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+#character-list img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Style for video container */
+.video-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: auto;
+    justify-items: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.video {
+    width: 100%; 
+}
+
+/* Additional styles as needed */
