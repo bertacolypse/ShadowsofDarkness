@@ -20,9 +20,49 @@ button {
     margin: 0 auto; /* This centers the button horizontally */
     margin-top: 10px; /* Add some space between the image and the button */
 }
-In this corrected version, the button styles are defined separately as a global rule, so it applies to all buttons on the page. The margin: 0 auto; property for the button will center it horizontally within its parent element, which is the section in this case. This should center the button on the screen.
-
-
-
-
-
+/* Font Definitions */
+@font-face {
+    font-family: Wingdings;
+    panose-1: 5 0 0 0 0 0 0 0 0 0;
+  }
+  /* Add other font-face definitions here */
+  
+  /* Style Definitions */
+  .MsoNormal, .MsoTitle, .MsoSubtitle {
+    margin: 0;
+    line-height: 107%;
+    font-size: 11pt;
+    font-family: "Calibri", sans-serif;
+  }
+  .MsoTitle {
+    font-size: 28pt;
+    font-family: "Calibri Light", sans-serif;
+    letter-spacing: -0.5pt;
+  }
+  .MsoSubtitle {
+    margin-top: 0;
+    margin-bottom: 8pt;
+    color: #5A5A5A;
+    letter-spacing: 0.75pt;
+  }
+  .MsoIntenseEmphasis {
+    color: #4472C4;
+    font-style: italic;
+  }
+  /* Add other style definitions here */
+  
+  /* Page Definitions */
+  @page WordSection1 {
+    size: 8.5in 11.0in;
+    margin: 1.0in;
+  }
+  .WordSection1 {
+    page: WordSection1;
+  }
+  /* Add other page definitions here */
+  
+  /* List Definitions */
+  ol, ul {
+    margin-bottom: 0;
+  }
+  
